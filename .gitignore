@@ -1,0 +1,7 @@
+node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+apps/*/dist/
+# Vitest の HTML レポート（pnpm test:report。deploy.yml が Pages に載せる）
+*/*/vitest-report/
+*.log
