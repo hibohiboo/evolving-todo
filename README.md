@@ -5,6 +5,8 @@
 - サイト（ダッシュボード・仕様・開発プロセス）：https://hibohiboo.github.io/evolving-todo/
 - アプリ：https://hibohiboo.github.io/evolving-todo/app/
 - 体制の進化のタイムライン：https://hibohiboo.github.io/evolving-todo/process/timeline
+- API ドキュメント：https://hibohiboo.github.io/evolving-todo/api-docs/
+- テストレポート：https://hibohiboo.github.io/evolving-todo/architecture/test-report
 
 ## 何を見せるサンプルか
 

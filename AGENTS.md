@@ -4,7 +4,7 @@
 
 ## 技術スタック
 
-構成の正は `docs/architecture/index.md`。要点だけ：TypeScript・pnpm workspace。`docs/`（VitePress）・`apps/web/`（Vite + React 19 + TanStack Query + MSW。**バックエンドは無く、状態はリロードで消える**）・`packages/domain/`（ドメイン型と純粋関数）。
+構成の正は `docs/architecture/index.md`。要点だけ：TypeScript・pnpm workspace。`docs/`（VitePress）・`apps/web/`（Vite + React 19 + TanStack Query + MSW。**バックエンドは無く、状態はリロードで消える**）・`packages/domain/`（ドメイン型と純粋関数）・`packages/schemas/`（API の一覧。ここから API ドキュメントを作る）。E2E は Playwright（`apps/web/e2e/`、CI のみ）。
 
 ## ディレクトリ構成
 
@@ -26,10 +26,14 @@ pnpm web:test         # Vitest（MSW の node サーバーで画面を描画）
 pnpm web:typecheck    # tsc
 pnpm domain:test      # Vitest（packages/domain の純粋関数）
 pnpm domain:typecheck # tsc
+pnpm schemas:test     # Vitest（packages/schemas の応答の検査・OpenAPI の文書）
+pnpm schemas:typecheck # tsc
+pnpm web:e2e          # Playwright（ビルドして 4173 番の preview を実ブラウザで開く。CI でも流す）
 pnpm tools:test       # node --test（scripts/ と .claude/hooks/ の補助スクリプト）
 pnpm docs:dev         # 仕様書サイトをローカルで確認
 pnpm docs:build       # 仕様書サイトのビルド（リンク切れ・ロードマップに無いマイルストーン・進化ログの書式の誤りで失敗する）
-pnpm build:pages      # docs + app をまとめてビルド（デプロイと同じ）
+pnpm api:docs         # API ドキュメント（OpenAPI の文書と Redoc の HTML）を docs/.vitepress/dist/api-docs/ に作る。redocly lint で誤りがあれば失敗する（docs:build の後に流す）
+pnpm build:pages      # docs + app + API ドキュメントをまとめてビルド（デプロイと同じ）
 pnpm lint             # Biome
 node scripts/replace-once.mjs <spec.json>  # ファイルの文字列を置き換える。件数と二重の当たりを確かめてから書く
 node scripts/mutate-check.mjs <spec.json>  # 守る条件を1つずつ外し、テストが落ちることを確かめて元に戻す
@@ -39,7 +43,7 @@ lint・型検査・テスト・docsビルドは、AI にトークンを使わせ
 
 - `.githooks/pre-commit` … ステージ済みファイルだけ `biome check --staged --write`。安全な指摘は自動修正して再ステージする
 - `.githooks/commit-msg` … 進め方に関わるファイル（`docs/process/`・`AGENTS.md`・`CLAUDE.md`・`.claude/`）を変えたのに、体制の進化ログ（`docs/process/evolution.md` か `docs/process/evolution/<年-月>.md`）が変わっていないコミットを止める。記録が要らない変更は、コミットメッセージに `進化ログ不要: <理由>` の行を書く
-- `.githooks/pre-push` … 型検査・テスト・docs ビルド（CIと同じ）
+- `.githooks/pre-push` … 型検査・テスト・docs ビルド・API ドキュメントの生成（CIと同じ。E2E だけは重いので CI のみ）
 
 `pnpm install` すると `prepare` スクリプトが `git config --local core.hooksPath .githooks` を設定する。CI（`.github/workflows/ci.yml`）にも同じチェックがある。
 
@@ -50,7 +54,7 @@ lint・型検査・テスト・docsビルドは、AI にトークンを使わせ
 | 対象 | 必ず読むルール |
 |---|---|
 | `apps/**`, `packages/**` | `docs/process/rules/architecture.md` |
-| `**/*.test.*`, `apps/web/src/test/**`, `apps/web/src/mocks/**`、テストの追加・変更 | `docs/process/rules/testing.md` |
+| `**/*.test.*`, `apps/web/src/test/**`, `apps/web/src/mocks/**`, `apps/web/e2e/**`, `packages/schemas/**`、テストの追加・変更 | `docs/process/rules/testing.md` |
 | push・マージ前、レビュー実行時 | `docs/process/rules/review.md` |
 | `docs/plans/**`、機能追加・振る舞いの変更（プラン作成から） | `docs/process/index.md`（開発サイクル） |
 | `docs/backlog/**` | `docs/backlog/index.md`（要望の書き方） |

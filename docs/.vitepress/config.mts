@@ -9,8 +9,8 @@ export default defineConfig({
   // docs/plans/ は作業単位のプランドキュメント（コードのパス等を多く含む）で、公開サイトには載せない
   srcExclude: ['plans/**'],
   markdown: { anchor: { slugify: githubSlug } },
-  // アプリ（/app/）とテストレポートはビルド後に dist へ写すので、VitePress のリンク検査からは外す
-  ignoreDeadLinks: [/^\/app\//, /^\/vitest-report\//],
+  // アプリ・API ドキュメント・テストレポートはビルド後に dist へ書くので、VitePress のリンク検査からは外す
+  ignoreDeadLinks: [/^\/app\//, /^\/api-docs\//, /^\/vitest-report\//, /^\/e2e-report\//],
 
   themeConfig: {
     nav: [
@@ -19,6 +19,7 @@ export default defineConfig({
       { text: '開発プロセス', link: '/process/' },
       { text: 'タイムライン', link: '/process/timeline' },
       { text: 'アプリ', link: '/app/', target: '_self' },
+      { text: 'API', link: '/api-docs/', target: '_self' },
     ],
 
     // ページを足したら、ここにも足す（メニューから辿れなくならないように）

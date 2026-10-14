@@ -69,7 +69,7 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.test.ts", "**/*.test.tsx", "apps/web/src/test/**"],
+      "includes": ["**/*.test.ts", "**/*.test.tsx", "apps/web/src/test/**", "apps/web/e2e/**"],
       "linter": {
         "rules": {
           "style": {
@@ -100,7 +100,7 @@
       }
     },
     {
-      "includes": ["apps/web/src/**", "packages/domain/src/**"],
+      "includes": ["apps/web/src/**", "packages/domain/src/**", "packages/schemas/src/**"],
       "linter": {
         "rules": {
           "performance": {

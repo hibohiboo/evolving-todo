@@ -8,9 +8,12 @@ import { cpSync, existsSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const reports = [
+  // Playwright（pnpm web:e2e）
+  ['apps/web/playwright-report', 'e2e-report'],
   // Vitest（pnpm test:report）
   ['apps/web/vitest-report', 'vitest-report/web'],
   ['packages/domain/vitest-report', 'vitest-report/domain'],
+  ['packages/schemas/vitest-report', 'vitest-report/schemas'],
 ];
 
 for (const [from, to] of reports) {

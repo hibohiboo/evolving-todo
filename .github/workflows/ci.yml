@@ -40,11 +40,39 @@ jobs:
       - name: Test (packages/domain)
         run: pnpm domain:test
 
+      - name: Typecheck (packages/schemas)
+        run: pnpm schemas:typecheck
+
+      - name: Test (packages/schemas)
+        run: pnpm schemas:test
+
       - name: Test (apps/web)
         run: pnpm web:test
 
       - name: Test (scripts・Claude Code のフック)
         run: pnpm tools:test
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @evolving-todo/web exec playwright install --with-deps chromium
+
+      - name: Install Playwright OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @evolving-todo/web exec playwright install-deps chromium
+
+      - name: E2E (apps/web)
+        run: pnpm web:e2e
+
       - name: Build docs
         run: pnpm docs:build
+
+      # docs:build が dist を作り直すので、その後に流す
+      - name: Build API docs (redocly lint)
+        run: pnpm api:docs

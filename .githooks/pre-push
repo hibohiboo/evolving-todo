@@ -1,5 +1,5 @@
 #!/bin/sh
-# push前に、型検査・テスト・docsビルドをローカルで通す。CI（.github/workflows/ci.yml）と同じチェックを、
+# push前に、型検査・テスト・docsビルド・API ドキュメントの生成（redocly lint）をローカルで通す。CI（.github/workflows/ci.yml）と同じチェックを、
 # pushする前に手元で確認するのが目的。
 # 有効化: git config --local core.hooksPath .githooks
 # （`pnpm install` の prepare スクリプトが自動で設定する。scripts/setup-git-hooks.mjs 参照）
@@ -15,7 +15,8 @@ if ! command -v pnpm >/dev/null 2>&1; then
   exit 0
 fi
 
-steps="web:typecheck domain:typecheck domain:test web:test tools:test docs:build"
+# E2E はブラウザを起動して重いので入れない（CI だけで流す）。api:docs は docs:build が作り直す dist に書くので、その後に流す
+steps="web:typecheck domain:typecheck domain:test schemas:typecheck schemas:test web:test tools:test docs:build api:docs"
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 

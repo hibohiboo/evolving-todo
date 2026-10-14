@@ -43,6 +43,27 @@ jobs:
         env:
           WEB_BASE: /evolving-todo/app/
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @evolving-todo/web exec playwright install --with-deps chromium
+        continue-on-error: true
+
+      - name: Install Playwright OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @evolving-todo/web exec playwright install-deps chromium
+        continue-on-error: true
+
+      - name: E2E (report only, does not block deploy)
+        run: pnpm web:e2e
+        continue-on-error: true
+
       - name: Vitest (report only, does not block deploy)
         if: always()
         run: pnpm test:report

@@ -4,7 +4,9 @@ main への push ごとに、デプロイ（`.github/workflows/deploy.yml`）が
 
 | レポート | 中身 | 手元で流すコマンド |
 |---|---|---|
+| <a href="/evolving-todo/e2e-report/" target="_self">E2E（Playwright）</a> | ビルドした画面を実ブラウザで開くテスト。スクリーンショット付き | `pnpm web:e2e` |
 | <a href="/evolving-todo/vitest-report/web/" target="_self">Vitest：Webアプリ</a> | `apps/web` のテスト（MSW の node サーバーで画面を描画） | `pnpm web:test` |
 | <a href="/evolving-todo/vitest-report/domain/" target="_self">Vitest：ドメイン</a> | `packages/domain` の純粋関数のテスト | `pnpm domain:test` |
+| <a href="/evolving-todo/vitest-report/schemas/" target="_self">Vitest：API のスキーマ</a> | `packages/schemas` の応答の検査・OpenAPI の文書のテスト | `pnpm schemas:test` |
 
 Vitest の HTML レポートを手元で作るときは `pnpm test:report`（各パッケージの `vitest-report/` に書く。git には載せない）。レポートを dist に写すのは `scripts/copy-test-reports-to-pages.mjs`。
