@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>体制ごと進化させる</title>
+    <!-- 本文は同じディレクトリの slides.md（reveal.js の markdown プラグインが読む）。ここは枠と見た目だけ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+    <style>
+      :root {
+        --r-main-font: system-ui, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+        --r-heading-font: system-ui, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+        --r-main-font-size: 34px;
+        --r-heading-text-transform: none;
+        --r-link-color: #0b6e4f;
+        --r-link-color-hover: #0d8a63;
+      }
+      .reveal h1 { font-size: 1.9em; }
+      .reveal h2 { font-size: 1.35em; }
+      .reveal table { font-size: 0.68em; }
+      .reveal ul, .reveal ol { display: block; }
+      .reveal pre { width: 100%; font-size: 0.5em; box-shadow: none; }
+      .reveal pre code { max-height: 560px; line-height: 1.35; }
+      .reveal small { color: #656d76; }
+      .reveal strong { color: #0b6e4f; }
+      /* .reveal の外に置くので、.reveal で絞らない（絞ると効かず、リンクが流れに入ってスライドがずれる） */
+      .back {
+        position: fixed;
+        left: 12px;
+        bottom: 10px;
+        font: 14px system-ui, sans-serif;
+        color: #0b6e4f;
+        z-index: 30;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="../">← サイトへ戻る</a>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-markdown="slides.md"
+          data-separator="^\r?\n---\r?\n$"
+          data-separator-vertical="^\r?\n--\r?\n$"
+          data-separator-notes="^Note:"
+        ></section>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: 'c/t',
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>

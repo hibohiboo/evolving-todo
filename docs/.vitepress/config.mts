@@ -9,8 +9,15 @@ export default defineConfig({
   // docs/plans/ は作業単位のプランドキュメント（コードのパス等を多く含む）で、公開サイトには載せない
   srcExclude: ['plans/**'],
   markdown: { anchor: { slugify: githubSlug } },
-  // アプリ・API ドキュメント・テストレポートはビルド後に dist へ書くので、VitePress のリンク検査からは外す
-  ignoreDeadLinks: [/^\/app\//, /^\/api-docs\//, /^\/vitest-report\//, /^\/e2e-report\//],
+  // アプリ・API ドキュメント・テストレポートはビルド後に dist へ書き、スライドは public/ の静的な HTML なので、
+  // VitePress のリンク検査からは外す
+  ignoreDeadLinks: [
+    /^\/app\//,
+    /^\/api-docs\//,
+    /^\/vitest-report\//,
+    /^\/e2e-report\//,
+    /^\/slides\//,
+  ],
 
   themeConfig: {
     nav: [
@@ -20,6 +27,7 @@ export default defineConfig({
       { text: 'タイムライン', link: '/process/timeline' },
       { text: 'アプリ', link: '/app/', target: '_self' },
       { text: 'API', link: '/api-docs/', target: '_self' },
+      { text: 'スライド', link: '/slides/', target: '_self' },
     ],
 
     // ページを足したら、ここにも足す（メニューから辿れなくならないように）

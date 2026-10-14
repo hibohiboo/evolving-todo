@@ -7,6 +7,7 @@
 - 体制の進化のタイムライン：https://hibohiboo.github.io/evolving-todo/process/timeline
 - API ドキュメント：https://hibohiboo.github.io/evolving-todo/api-docs/
 - テストレポート：https://hibohiboo.github.io/evolving-todo/architecture/test-report
+- 紹介のスライド（reveal.js）：https://hibohiboo.github.io/evolving-todo/slides/
 
 ## 何を見せるサンプルか
 

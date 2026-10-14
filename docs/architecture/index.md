@@ -22,6 +22,7 @@ main に push するたびに `.github/workflows/deploy.yml` が全部をビル�
 | `/app/` | アプリ | `apps/web` のビルドを `scripts/copy-web-to-pages.mjs` が写す（MSW ごと動く） |
 | `/api-docs/` | API ドキュメント | 下の「API ドキュメント」 |
 | `/e2e-report/`・`/vitest-report/` | テストレポート | [テストレポート](test-report.md) |
+| `/slides/` | このリポジトリの仕組みを紹介するスライド（reveal.js） | `docs/public/slides/` をそのまま載せる。本文は `slides.md`（`---` で次のスライド、`Note:` からスピーカーノート）、`index.html` は枠と見た目だけ。reveal.js は CDN から読む |
 
 ## API ドキュメント
 
